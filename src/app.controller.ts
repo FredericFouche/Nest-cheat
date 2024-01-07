@@ -13,10 +13,10 @@ export class AppController {
   // @Get() est un décorateur qui permet de définir une route pour la méthode getHello()
   @Get()
   // la méthode getHello() retourne une chaîne de caractères qui est retournée par le service AppService (voir app.service.ts)
-  getHello(): string {
-    return this.appService.getHello();
+  getHello(@Res() res): void {
+    // cette fonction retourne une vue index.hbs
+    res.render('index', { message: this.appService.getHello() });
   }
-
   @Get('/hello')
   getHi(@Res() res): string {
     return res.render('index', { message: 'Hello World!' });

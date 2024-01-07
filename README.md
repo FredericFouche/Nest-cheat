@@ -63,7 +63,7 @@ touch views/index.hbs
 Dans le fichier `index.hbs`, nous allons ajouter le code suivant :
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -103,3 +103,17 @@ import { AppModule } from './app.module';
 Cela permettra d'utiliser le moteur de template EJS, de servir les vues depuis le dossier `views` et de servir les fichiers statiques depuis le dossier `public`.
 
 ### Création d'une route avec une vue
+
+Dans le fichier `app.controller.ts`, nous allons créer une route qui sera accessible à l'adresse `http://localhost:3000/`. Cette route retournera la vue `index.ejs`. Nous allons utiliser le appService pour passer des données à la vue.
+
+```typescript
+// cette ligne qui est ajouté dans la classe permet de définir le chemin de base de la route et le mot clé qui sera utilisé pour accéder à la route en l'oocurence ici un get sur l'adresse http://localhost:3000/
+  @Get('/')
+    // cette fonction sera appelé lorsque l'on accédera à l'adresse http://localhost:3000/ et retournera une vue qui sera affiché dans le navigateur
+  getHello(@Res() res): void {
+    // cette fonction retourne une vue index.hbs
+    res.render('index', { message: this.appService.getHello() });
+  }
+```
+
+appService sert à passer des données à la vue, il faut donc créer un service qui sera injecté dans le contrôleur, un peu comme les locals dans Express.
