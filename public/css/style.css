@@ -1,0 +1,15 @@
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.body {
+  font-size: 1rem;
+  color: #666;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #999;
+}
