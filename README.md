@@ -1,73 +1,105 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NestJS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## Installation via NPM
 
 ```bash
-$ npm install
+npm i -g @nestjs/cli
 ```
 
-## Running the app
+Cette ligne de commande permet d'installer le CLI de NestJS en global sur votre machine.
+
+## Création d'un projet
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+nest new project-name
 ```
 
-## Test
+Cette ligne de commande permet de créer un nouveau projet NestJS en lui donnant un nom, un dossier sera créé avec le nom du projet. Ce dossier contiendra le projet avec les fichiers de base comme le fichier `package.json` et le dossier `src` qui contiendra le code source de l'application respectant l'architecture MVC.
+
+## Les fichiers de base et leur rôle
+
+| Fichier                  | Description                                                                                                                                                                                                                                                                                             |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app.controller.ts`      | Un contrôleur de base avec une seule route.                                                                                                                                                                                                                                                             |
+| `app.controller.spec.ts` | Les tests unitaires pour le contrôleur.                                                                                                                                                                                                                                                                 |
+| `app.module.ts`          | Le module racine de l'application.                                                                                                                                                                                                                                                                      |
+| `app.service.ts`         | Un service de base avec une seule méthode.                                                                                                                                                                                                                                                              |
+| `main.ts`                | Le fichier d'entrée de l'application qui utilise la fonction principale NestFactory pour créer une instance d'application Nest. Le fichier main.ts est le point d'entrée principal de votre application NestJS. Il contient une fonction bootstrap() qui est responsable du démarrage de l'application. |
+
+## Lancer le projet
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cd project-name
+npm run start
 ```
 
-## Support
+Cette ligne de commande permet de lancer le projet, le serveur sera accessible à l'adresse `http://localhost:3000/`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Notre première route
 
-## Stay in touch
+Dans le fichier `app.controller.ts`, qui est le contrôleur de base de l'application, nous allons créer une route qui sera accessible à l'adresse `http://localhost:3000/hello`.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```typescript
+// cette ligne qui est ajouté dans la classe permet de définir le chemin de base de la route et le mot clé qui sera utilisé pour accéder à la route en l'oocurence ici un get sur l'adresse http://localhost:3000/hello
+  @Get('/hello')
+    // cette fonction sera appelé lorsque l'on accédera à l'adresse http://localhost:3000/hello et retournera une chaîne de caractère qui sera affiché dans le navigateur
+  getHi(): string {
+    // cette fonction retourne une chaîne de caractère "Hi! I'm a route!"
+    return "Hi! I'm a route!";
+  }
+```
 
-## License
+Pour retourner une vue, il faut utiliser la fonction `render()` de l'objet `response` qui est passé en paramètre de la fonction.
 
-Nest is [MIT licensed](LICENSE).
+### Création d'une vue
+
+Pour créer une vue, il faut créer un dossier `views` à la racine du projet et créer un fichier `index.hbs` dans ce dossier. hbs est l'extension du moteur de template Handlebars qui est utilisé par défaut par NestJS.
+
+```bash
+mkdir views
+touch views/index.hbs
+```
+
+Dans le fichier `index.hbs`, nous allons ajouter le code suivant :
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #282c34;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+  </body>
+</html>
+```
+
+### Définir le moteur de template
+
+Pour définir le moteur de template, il faut ajouter la ligne suivante dans le fichier `main.ts` :
+
+```typescript
+app.useStaticAssets(join(__dirname, '..', 'public'));
+app.setBaseViewsDir(join(__dirname, '..', 'views'));
+app.setViewEngine('ejs');
+```
+
+avec les imports suivants :
+
+```typescript
+import { join } from 'path';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+```
+
+Cela permettra d'utiliser le moteur de template EJS, de servir les vues depuis le dossier `views` et de servir les fichiers statiques depuis le dossier `public`.
+
+### Création d'une route avec une vue
