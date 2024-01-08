@@ -16,7 +16,7 @@ else
 
     # Extraire les informations du dernier commit
     commitDateRaw=$(git log -1 --format=%cI)
-    commitDateFormatted=$(date -d "$commitDateRaw" +"%A %d %B %Y, %H:%M:%S")
+    commitDateFormatted=$(date -jf "%Y-%m-%dT%H:%M:%S%z" "$commitDateRaw" +"%A %d %B %Y, %H:%M:%S")
     remoteUrl=$(git remote -v | grep "origin" | awk '{print $2}' | head -n 1)
     repoDetails="${remoteUrl#*@}"
     accountName=${repoDetails%%/*}
