@@ -120,7 +120,7 @@ appService sert à passer des données à la vue, il faut donc créer un service
 
 ### Création d'un data mapper
 
-Pour créer un datamapper, il faut créer un dossier `database` dans le dossier `src` et créer des fichiers `entity.ts` pour les entités, `module.ts` pour les modules (pour la connexion à la base de données par exemple). Voici un modèle de fichier `entity.ts` :
+Pour créer un datamapper, il faut créer un dossier `database` dans le dossier `src` et créer des fichiers `entity.ts` pour les entités (avec les classes qui représentent les tables de la base de données), `service.ts` pour les services (pour les requêtes à la base de données par exemple), `module.ts` pour les modules (pour la connexion à la base de données par exemple). Voici un modèle de fichier `entity.ts` :
 
 ```typescript
 // import des méthodes de typeorm dont on a besoin

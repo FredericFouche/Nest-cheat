@@ -1,6 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Question } from './Question.entities';
 
+// une proposition est une entité qui représente une table dans la bdd
+
 @Entity()
 export class Proposition {
   @PrimaryGeneratedColumn()
