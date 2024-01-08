@@ -117,3 +117,46 @@ Dans le fichier `app.controller.ts`, nous allons créer une route qui sera acces
 ```
 
 appService sert à passer des données à la vue, il faut donc créer un service qui sera injecté dans le contrôleur, un peu comme les locals dans Express.
+
+### Création d'un data mapper rudimentaire
+
+Pour créer un datamapper rudimentaire, il faut créer un dossier `database` dans le dossier `src` et créer des fichiers `entity.ts` pour les entités, `module.ts` pour les modules (pour la connexion à la base de données par exemple). Voici un modèle de fichier `entity.ts` :
+
+```typescript
+// import des méthodes de typeorm dont on a besoin
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+// import de l'entité parente
+import { Quiz } from './Quiz.entities';
+// import de l'entité enfant
+import { Proposition } from './Proposition.entities';
+
+// cette ligne permet de définir le nom de l'entité dans la base de données
+@Entity()
+// cette ligne permet de définir le nom de l'entité dans le code
+export class Question {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  description: string;
+
+  @Column()
+  doc_link: string;
+
+  // un quiz peut avoir plusieurs questions
+  // une question ne peut avoir qu'un seul quiz
+  @ManyToOne((type) => Quiz, (quiz) => quiz.questions)
+  quiz: Quiz;
+
+  // une question peut avoir plusieurs propositions
+  // une proposition ne peut avoir qu'une seule question
+  @OneToMany((type) => Proposition, (proposition) => proposition.question)
+  propositions: Proposition[];
+}
+```
