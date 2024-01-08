@@ -26,7 +26,7 @@ else
     # Afficher les informations du commit
     echo "###############################################################################################################"
     echo "Date du commit : $commitDateFormatted"
-    echo "Dépôt : $accountName / $repoName" -foreground green
+    echo "Dépôt : $accountName / $repoName"
     echo "Commit et push terminé !"
     echo "###############################################################################################################"
 fi
