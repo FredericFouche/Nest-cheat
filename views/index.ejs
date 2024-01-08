@@ -3,15 +3,38 @@
         <%- include('partials/nav.ejs') %>
       <main class="container">
         <h1 class="text-center pt-4 pb-2 h1">Quiz JS</h1>
-        <div class="row mx-4">
-          <div class="col-4"><%- include('partials/card.ejs') %></div>
-          <div class="col-4"><%- include('partials/card.ejs') %></div>
-          <div class="col-4"><%- include('partials/card.ejs') %></div>
-        </div>
-        <div class="row mx-4 mt-2">
-          <div class="col-4"><%- include('partials/card.ejs') %></div>
-          <div class="col-4"><%- include('partials/card.ejs') %></div>
-          <div class="col-4"><%- include('partials/card.ejs') %></div>
+        <div class="row mx-1"> <!-- Decreased margin -->
+          <% quizzes.forEach(function(quiz, index) { %>
+            <% if (index < 3) { %>
+              <div class="col-md-4 card-custom">
+            <% } else { %>
+              <div class="col-md-4 card-custom">
+            <% } %>
+              <article class="card-select card h-100"> <!-- Added h-100 class -->
+                <header class="card-header">
+                  <h2 class="card-quiz__title card-title"><%= quiz.title %></h2>
+                  <div class="card-quiz__infos">
+                    <strong
+                      class="card-quiz__level badge bg-primary font-weight-normal"
+                      aria-label="Niveau débutant"
+                      ><%= quiz.level %></strong
+                    >
+                    <strong
+                      class="card-quiz__questions badge bg-secondary"
+                      aria-label="5 questions au total"
+                      ><%= quiz.number_question %> questions</strong
+                    >
+                  </div>
+                </header>
+                <div class="card-quiz card-body m-2 p-2">
+                  <p class="card-quiz__description card-text"><%= quiz.description %></p>
+                  <div class="d-flex justify-content-center">
+                    <a href="/quiz/1" class="btn btn-primary pe-auto">Commencer</a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          <% }) %>
         </div>
       </main>
     </main>

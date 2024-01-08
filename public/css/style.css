@@ -13,3 +13,13 @@ p {
   font-size: 1.2rem;
   color: #999;
 }
+
+.card-custom {
+  margin-top: 20px !important;
+}
+
+@media screen and (min-width: 768px) {
+  .card-custom {
+    margin-top: 0rem;
+  }
+}

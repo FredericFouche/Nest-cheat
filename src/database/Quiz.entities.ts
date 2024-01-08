@@ -6,7 +6,11 @@ export class Quiz {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+  })
   title: string;
 
   @Column({ nullable: true })
