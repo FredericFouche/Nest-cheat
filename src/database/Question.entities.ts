@@ -13,10 +13,10 @@ export class Question {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   doc_link: string;
 
   // un quiz peut avoir plusieurs questions

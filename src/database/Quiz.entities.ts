@@ -6,17 +6,17 @@ export class Quiz {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   level: string;
 
-  @Column()
-  number_questions: number;
+  @Column({ nullable: true })
+  number_question: number;
 
   // un quiz peut avoir plusieurs questions
   // une question ne peut avoir qu'un seul quiz

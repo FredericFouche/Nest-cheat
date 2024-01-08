@@ -8,11 +8,11 @@ export class Proposition {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Column()
-  is_correct: boolean;
+  is_true: boolean;
 
   // une question peut avoir plusieurs propositions
   // une proposition ne peut avoir qu'une seule question
