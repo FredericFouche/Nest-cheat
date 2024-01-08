@@ -118,9 +118,9 @@ Dans le fichier `app.controller.ts`, nous allons créer une route qui sera acces
 
 appService sert à passer des données à la vue, il faut donc créer un service qui sera injecté dans le contrôleur, un peu comme les locals dans Express.
 
-### Création d'un data mapper rudimentaire
+### Création d'un data mapper
 
-Pour créer un datamapper rudimentaire, il faut créer un dossier `database` dans le dossier `src` et créer des fichiers `entity.ts` pour les entités, `module.ts` pour les modules (pour la connexion à la base de données par exemple). Voici un modèle de fichier `entity.ts` :
+Pour créer un datamapper, il faut créer un dossier `database` dans le dossier `src` et créer des fichiers `entity.ts` pour les entités, `module.ts` pour les modules (pour la connexion à la base de données par exemple). Voici un modèle de fichier `entity.ts` :
 
 ```typescript
 // import des méthodes de typeorm dont on a besoin
@@ -158,5 +158,69 @@ export class Question {
   // une proposition ne peut avoir qu'une seule question
   @OneToMany((type) => Proposition, (proposition) => proposition.question)
   propositions: Proposition[];
+}
+```
+
+Il faudra ensuite créer un fichier `module.ts` dans le dossier `database` pour définir la connexion à la base de données. Voici un modèle de fichier `module.ts` :
+
+```typescript
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Quiz } from './Quiz.entities';
+import { Proposition } from './Proposition.entities';
+import { Question } from './Question.entities';
+
+@Module({
+  imports: [
+    TypeOrmModule.forRoot({
+      // type de bdd
+      type: 'postgres',
+      // nom de l'hôte
+      host: 'localhost',
+      // port de l'hôte
+      port: 5432,
+      // nom d'utilisateur
+      username: 'quiz',
+      // mot de passe
+      password: 'quiz',
+      // nom de la base de données
+      database: 'quiz',
+      // entités à utiliser
+      entities: [Quiz, Proposition, Question],
+      // auto-synchronisation
+      synchronize: true,
+    }),
+    // entités à utiliser
+    TypeOrmModule.forFeature([Quiz, Proposition, Question]),
+  ],
+  // export du module
+  exports: [TypeOrmModule],
+})
+export class DatabaseModule {}
+```
+
+Nous aurons ensuite besoin d'un service pour faire les requêtes à la base de données. Voici un modèle de fichier `service.ts`, par exemple pour l'entité `Quiz`:
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Quiz } from './Quiz.entities';
+
+@Injectable()
+export class QuizService {
+  constructor(
+    @InjectRepository(Quiz)
+    private readonly quizRepository: Repository<Quiz>,
+  ) {}
+
+  // CRUD -> en réalité, on ne fait que le Read car on ne peut pas modifier les quiz pour l'instant
+  async findAll(): Promise<Quiz[]> {
+    return this.quizRepository.find();
+  }
+
+  async findById(id: number): Promise<Quiz> {
+    return this.quizRepository.findOne({ where: { id } });
+  }
 }
 ```

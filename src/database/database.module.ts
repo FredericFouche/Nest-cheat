@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { Quiz } from './Quiz.entities';
+import { Proposition } from './Proposition.entities';
+import { Question } from './Question.entities';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { User } from './user.entity';
       // auto-synchronisation
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([Quiz, Proposition, Question]),
   ],
   exports: [TypeOrmModule],
 })
