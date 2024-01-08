@@ -15,8 +15,8 @@ else
     git push
 
     # Extraire les informations du dernier commit
-    commitDateRaw=$(git log -1 --format=%cI)
-    commitDateFormatted=$(date -jf "%Y-%m-%dT%H:%M:%S%z" "$commitDateRaw" +"%A %d %B %Y, %H:%M:%S")
+    commitDateRaw=$(git log -1 --format=%cI | cut -d '+' -f 1) # Supprime le fuseau horaire
+    commitDateFormatted=$(date -jf "%Y-%m-%dT%H:%M:%S" "$commitDateRaw" +"%A %d %B %Y, %H:%M:%S")
     remoteUrl=$(git remote -v | grep "origin" | awk '{print $2}' | head -n 1)
     repoDetails="${remoteUrl#*@}"
     accountName=${repoDetails%%/*}
