@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { Question } from './Question.entities';
+import { join } from 'path';
 
 @Entity()
 export class Quiz {
@@ -22,8 +29,6 @@ export class Quiz {
   @Column({ nullable: true })
   number_question: number;
 
-  // un quiz peut avoir plusieurs questions
-  // une question ne peut avoir qu'un seul quiz
   @OneToMany(() => Question, (question) => question.quiz)
   questions: Question[];
 }

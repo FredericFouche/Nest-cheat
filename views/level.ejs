@@ -1,0 +1,35 @@
+<%- include('partials/head.ejs') %>
+  <body>
+        <%- include('partials/nav.ejs') %>
+        <h1 class="text-center pt-4 pb-2 h1">Quiz classé par Difficulté</h1>
+            <main class="container py-3 my-3">
+                <table class="table">
+                <thead>
+                    <tr>
+                    <th>Niveau</th>
+                    <th>Nombre de questions</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% quizzes.forEach((quiz) => { %>
+                    <tr>
+                        <td><%= quiz.level %></td>
+                        <td><%= quiz.number_question %> questions</td>
+                        <td><%= quiz.description %></td>
+                        <td><a href="/quiz/<%= quiz.id %>" class="btn btn-primary pe-auto">Commencer</a></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+                </table>
+            </main>
+    <%- include('partials/footer.ejs') %>
+</body>
+<!-- script bootstrap -->
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+crossorigin="anonymous"
+></script>
+</html>

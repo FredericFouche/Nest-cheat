@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Quiz } from './Quiz.entities';
 import { Proposition } from './Proposition.entities';
@@ -29,7 +30,8 @@ export class Question {
 
   // un quiz peut avoir plusieurs questions
   // une question ne peut avoir qu'un seul quiz
-  @ManyToOne((type) => Quiz, (quiz) => quiz.questions)
+  @ManyToOne(() => Quiz, (quiz) => quiz.questions)
+  @JoinColumn({ name: 'quizId' }) // Ceci est la clé étrangère dans la base de données
   quiz: Quiz;
 
   // une question peut avoir plusieurs propositions

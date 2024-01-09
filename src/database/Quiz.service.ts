@@ -18,4 +18,15 @@ export class QuizService {
   async findById(id: number): Promise<Quiz> {
     return this.quizRepository.findOne({ where: { id } });
   }
+
+  async findQuizzesByLevel(): Promise<Quiz[]> {
+    const quizzes = await this.quizRepository.find();
+
+    const sortedQuizzes = quizzes.sort((a, b) => {
+      const levels = ['débutant', 'avancé', 'difficile'];
+      return levels.indexOf(a.level) - levels.indexOf(b.level);
+    });
+
+    return sortedQuizzes;
+  }
 }
